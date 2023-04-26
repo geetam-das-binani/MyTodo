@@ -2,43 +2,43 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 export default function App() {
+	// FETCHING DATA FROM THE LOCAL STORAGE 
 	const globalItems = () => {
 		const myListItems = JSON.parse(localStorage.getItem("My_List"));
 		if (myListItems) {
 			return myListItems;
 		} 
-    else {
+		else {
 			return [];
 		}
 	};
+	// SETTING CHECKLIST BUTTON VALUE ON PAGE LOAD 
 	const btnValue = () => {
-		const myListItems = JSON.parse(localStorage.getItem("My_List"))||[]
+		const myListItems = JSON.parse(localStorage.getItem("My_List")) || [];
 		if (myListItems.length !== 0) {
 			return "Remove All";
-		} 
-    else {
-		return "Checklist";
 		}
-			
+		 else {
+			return "Checklist";
+		}
 	};
-	// FOR PROVIDING ALERT IF USER HAVEN'T ENTERED ANYTHING 
-	const checklistBtn=()=>{
-		const checklist=localStorage.getItem('checklist')
-		if(checklist){
-			return false
-
+	// FOR PROVIDING ALERT IF USER HAVEN'T ENTERED ANYTHING
+	const checklistBtn = () => {
+		const checklist = localStorage.getItem("checklist");
+		if (checklist) {
+			return false;
+		} 
+		else {
+			return true;
 		}
-		else{
-			return  true
-		}
-	}
+	};
 	const inputref = useRef();
-	const [btn, setBtn] = useState(btnValue())
+	const [btn, setBtn] = useState(btnValue());
 	const [text, setText] = useState("");
 	const [toggleSubmit, setToggleSubmit] = useState(true);
 	const [items, setItems] = useState(globalItems());
 	const [editItem, setEditItem] = useState(null);
-	const[CheckBtn,setCheckBtn]=useState(checklistBtn())
+	const [CheckBtn, setCheckBtn] = useState(checklistBtn());
 
 	// ADDING LIST ITEMS
 	const addtodo = () => {
@@ -46,7 +46,7 @@ export default function App() {
 			alert("Enter Some Todo Plan");
 			return;
 		} 
-    else if (text && !toggleSubmit) {
+		else if (text && !toggleSubmit) {
 			setItems(
 				items.map((z) => {
 					if (z.id === editItem) {
@@ -59,12 +59,12 @@ export default function App() {
 			setText("");
 			setEditItem(null);
 		} 
-    else {
+		else {
 			const textdata = { id: new Date().getSeconds(), inputdata: text };
 			setItems([...items, textdata]);
 			setText("");
 			setBtn("Remove All");
-			setCheckBtn(true)
+			setCheckBtn(true);
 		}
 	};
 	// DELETING LIST ITEMS
@@ -72,7 +72,7 @@ export default function App() {
 		const filter_item = items.filter((x) => x.id !== id);
 		setItems(filter_item);
 		setBtn("Checklist");
-    setText('')
+		setText("");
 	};
 	// EDITING LIST ITEMS
 	const editinput = (id) => {
@@ -81,32 +81,25 @@ export default function App() {
 		setToggleSubmit(false);
 		setEditItem(id);
 		inputref.current.focus();
-    inputref.current.style.color='hotpink'
-    inputref.current.style.fontWeight='bold'
+		inputref.current.style.color = "hotpink";
+		inputref.current.style.fontWeight = "bold";
 	};
 	// REMOVING ALL LIST ITEMS AT ONCE
 	const removeall = () => {
-		if(text==='' && !CheckBtn ){
-			alert('Enter Something to Preview')
-
-			
-		}
-		else if(text==='' && CheckBtn ){
+		if (text === "" && !CheckBtn) {
+			alert("Enter Something to Preview");
+		} else if (text === "" && CheckBtn) {
 			setItems([]);
 			setBtn("Checklist");
-			setText('')
-			setCheckBtn(false)
-		
+			setText("");
+			setCheckBtn(false);
 		}
-		
-
 	};
-	// SENDING DATA TO THE LOCAL STORAGE EACH TIME OUR ITEMS AND CHECKBTN GETS UPDATED 
+	// SENDING DATA TO THE LOCAL STORAGE EACH TIME OUR ITEMS AND CHECKBTN GETS UPDATED
 	useEffect(() => {
-       localStorage.setItem("My_List", JSON.stringify(items));
-	   localStorage.setItem('checklist',CheckBtn)
-	
-	}, [items,CheckBtn]);
+		localStorage.setItem("My_List", JSON.stringify(items));
+		localStorage.setItem("checklist", CheckBtn);
+	}, [items, CheckBtn]);
 
 	return (
 		<div className="container-fluid my-5">
@@ -125,20 +118,12 @@ export default function App() {
 							/>
 						</div>
 						<div className="col-3">
-							<button
-								className="btn btn-primary fw-bold"
-								id="addtodobtn"
-								onClick={addtodo}
-							>
+							<button className="btn btn-primary fw-bold" id="addtodobtn" onClick={addtodo}>
 								{toggleSubmit ? "Add Todo" : "Update Item"}
 							</button>
 						</div>
 						<div className="col-3 mx-auto mt-1">
-							<button
-								className="btn btn-dark fw-bold"
-								id="checklist_btn"
-								onClick={removeall}
-							>
+							<button className="btn btn-dark fw-bold" id="checklist_btn" onClick={removeall}>
 								{btn}
 							</button>
 						</div>
@@ -148,23 +133,18 @@ export default function App() {
 									let { id, inputdata } = value;
 									return (
 										<>
-											<div style={{ display: "flex" }} key={id}>
-												<h4 className="mylist_input">{inputdata}</h4>
-												<button
-													className="btn btn-warning fw-bold text-dark"
-													onClick={() => editinput(id)}>Edit</button>
-												<button
-													className="btn btn-danger fw-bold text-dark "
-													onClick={() => handledelete(id)}>Delete</button>
-											</div>
-										</>
-									);
-								})}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-}
+									<div style={{ display: "flex" }} key={id}>
+									<h4 className="mylist_input">{inputdata}</h4>
+									<button	className="btn btn-warning fw-bold text-dark"onClick={() => editinput(id)}>Edit</button>
+								  <button className="btn btn-danger fw-bold text-dark "onClick={() => handledelete(id)}>Delete</button>
+								   </div>
+								</>)
+									})}
+						     	</ul>
+						      </div>
+					          </div>
+				              </div>
+			                 </div>
+		                    </div>
+							)
+						}
