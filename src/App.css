@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
+body{
+    background: rgb(89, 90, 97);
+}
+input[type='text']{
+    background: transparent;
+    color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input[type='text']:focus{
+    background: transparent;
+    color: white
+
+}
+input::placeholder{
+    font-weight: bold;
+}
+.mylist_input{
+    width: 68%;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+    border:2px solid grey;
+    border-radius: .2rem;
+
+}
+#checklist_btn{
+    width: 100%;
+    margin: unset;
+
+}
+#addtodobtn{
+    width:100%;
+    margin:0 .3rem 0 0 ;
+
+
+}
+.btn{
+    margin: .5rem 0 .2rem .2rem;
+    width: 15%;
+
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+@media (max-width:675px) {
+.btn{
+        margin: .5rem 0 .3rem .3rem;
+        width: 4.5rem;
+    
+    }
+    .form-control{
+        width: 75vw;
+    }
+    .mylist_input{
+        width: 55%;
+    }
+    #checklist_btn{
+        width: 24vw;
+    }
 
-.App-link {
-  color: #61dafb;
-}
+    #addtodobtn{
+        width:100%;
+        
+        
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    }
 }
